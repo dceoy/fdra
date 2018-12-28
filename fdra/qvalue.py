@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#
+# FDR-based p-value adjuster
+# https://github.com/dceoy/fdra
 
 import pandas as pd
 
@@ -11,6 +14,8 @@ def calculate_qvalue(pvalues, method='BH'):
     if method == 'BH':      # Benjamini-Hochberg method
         return df_p.assign(
             qval=lambda d: (d['pval'] * n / (n - d.index.values)).cummin()
-        ).set_index('index', drop=True).sort_index()['qval']
+        ).set_index(
+            'index', drop=True
+        ).sort_index()['qval'].values
     else:
         raise RuntimeError('Unimplemented method')
