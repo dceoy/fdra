@@ -6,7 +6,7 @@
 import pandas as pd
 
 
-def calculate_qvalue(pvalues, method='BH'):
+def qvalue(pvalues, method='BH'):
     df_p = pd.DataFrame({'pval': pvalues}).sort_values(
         by='pval', ascending=False
     ).reset_index()
