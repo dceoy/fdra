@@ -29,6 +29,8 @@ print(pd.DataFrame({'pval': pvals, 'qval': qvals}))
 Unit tests
 ----------
 
+Test data: random p-values and their q-values calculated by stats::p.adjust in R
+
 ```sh
 $ python ./test/test_qvalue.py
 ```

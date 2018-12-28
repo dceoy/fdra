@@ -14,8 +14,14 @@ class QvaluesByR(unittest.TestCase):
         index_col=None
     )
 
+    def test_invalid_input(self):
+        """qvalue should fail with invalid input
+        """
+        self.assertRaises(ValueError, qvalue, self.df_p['pval'] + 1)
+        self.assertRaises(ValueError, qvalue, self.df_p['pval'] - 1)
+
     def test_BH_qvalue(self, precision=5):
-        """Test of the Benjamini-Hochberg method
+        """qvalue with BH (Benjamini-Hochberg) should give correct q-values
         """
         df_q = self.df_p.assign(
             BH_new=lambda d: qvalue(d['pval'], method='BH')
@@ -24,7 +30,7 @@ class QvaluesByR(unittest.TestCase):
             self.assertEqual(row['BH'], row['BH_new'])
 
     def test_BY_qvalue(self, precision=5):
-        """Test of the Benjamini-Yekutieli method
+        """qvalue with BY (Benjamini-Yekutieli) should give correct q-values
         """
         df_q = self.df_p.assign(
             BY_new=lambda d: qvalue(d['pval'], method='BY')

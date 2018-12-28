@@ -15,10 +15,14 @@ def qvalue(pvalues, method='BH'):
     Returns:
         numpy.ndarray: q-value array
     """
-    n = len(pvalues)
-    df_p = pd.DataFrame({'pval': pvalues}).sort_values(
-        by='pval', ascending=False
-    ).reset_index()
+    pvals = pvalues if isinstance(pvalues, np.ndarray) else np.array(pvalues)
+    if np.sum((pvals < 0) | (pvals > 1)):
+        raise ValueError('Invalid p-values')
+    else:
+        n = len(pvals)
+        df_p = pd.DataFrame({'pval': pvals}).sort_values(
+            by='pval', ascending=False
+        ).reset_index()
     if method == 'BH':
         df_q = df_p.assign(
             qval=lambda d: (d['pval'] * n / (n - d.index.values)).cummin()
@@ -29,7 +33,7 @@ def qvalue(pvalues, method='BH'):
             qval=lambda d: (d['pval'] * n / (n - d.index.values) * w).cummin()
         )
     else:
-        raise RuntimeError('Unimplemented method')
+        raise ValueError('Unimplemented method')
     return df_q.set_index(
         'index', drop=True
     ).sort_index()['qval'].clip(

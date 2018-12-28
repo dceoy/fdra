@@ -15,7 +15,7 @@ test:
     - script:
         name: Run unittests
         code: |
-          python ./test/test_qvalue.py
+          python ./test/test_qvalue.py -v
   after-steps:
     - slack-notifier:
         url: $SLACK_URL
