@@ -13,6 +13,7 @@ setup(
     author_email='dnarsil+github@gmail.com',
     url='https://github.com/dceoy/fdra',
     include_package_data=True,
+    install_requires=['pandas'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Plugins',
