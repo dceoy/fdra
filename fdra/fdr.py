@@ -1,14 +1,15 @@
 #!/usr/bin/env python
-#
-# FDR-based p-value adjuster
-# https://github.com/dceoy/fdra
+"""
+FDR-based p-value adjuster.
+https://github.com/dceoy/fdra
+"""
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def qvalue(pvalues, method='BH'):
-    """Calculate q-values by the Benjamini-Hochberg method
+    """Calculate q-values by the Benjamini-Hochberg method.
     Args:
         pvalues (list): p-value list or array
         method (str): `BH` (Benjamini-Hochberg) or `BY` (Benjamini-Yekutieli)
